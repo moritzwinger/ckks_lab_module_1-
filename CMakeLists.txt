@@ -20,6 +20,7 @@ if(SEAL_BUILD_EXAMPLES)
     target_sources(sealexamples
             PRIVATE
             ${CMAKE_CURRENT_LIST_DIR}/ckks_basics.cpp
+            ${CMAKE_CURRENT_LIST_DIR}/ckks_advanced.cpp
             )
 
     if(TARGET SEAL::seal)

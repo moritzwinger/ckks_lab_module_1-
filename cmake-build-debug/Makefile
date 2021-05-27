@@ -143,6 +143,33 @@ sealexamples/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sealexamples.dir/build.make CMakeFiles/sealexamples.dir/build
 .PHONY : sealexamples/fast
 
+ckks_advanced.o: ckks_advanced.cpp.o
+
+.PHONY : ckks_advanced.o
+
+# target to build an object file
+ckks_advanced.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sealexamples.dir/build.make CMakeFiles/sealexamples.dir/ckks_advanced.cpp.o
+.PHONY : ckks_advanced.cpp.o
+
+ckks_advanced.i: ckks_advanced.cpp.i
+
+.PHONY : ckks_advanced.i
+
+# target to preprocess a source file
+ckks_advanced.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sealexamples.dir/build.make CMakeFiles/sealexamples.dir/ckks_advanced.cpp.i
+.PHONY : ckks_advanced.cpp.i
+
+ckks_advanced.s: ckks_advanced.cpp.s
+
+.PHONY : ckks_advanced.s
+
+# target to generate assembly for a file
+ckks_advanced.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sealexamples.dir/build.make CMakeFiles/sealexamples.dir/ckks_advanced.cpp.s
+.PHONY : ckks_advanced.cpp.s
+
 ckks_basics.o: ckks_basics.cpp.o
 
 .PHONY : ckks_basics.o
@@ -206,6 +233,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... sealexamples"
+	@echo "... ckks_advanced.o"
+	@echo "... ckks_advanced.i"
+	@echo "... ckks_advanced.s"
 	@echo "... ckks_basics.o"
 	@echo "... ckks_basics.i"
 	@echo "... ckks_basics.s"

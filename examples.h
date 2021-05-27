@@ -20,19 +20,10 @@
 #include <thread>
 #include <vector>
 
-void example_bfv_basics();
 
-void example_encoders();
+void ckks_module1();
 
-void example_levels();
-
-void example_ckks_basics();
-
-void example_rotation();
-
-void example_serialization();
-
-void example_performance_test();
+void ckks_module2();
 
 /*
 Helper function: Prints the name of the example in a fancy banner.
