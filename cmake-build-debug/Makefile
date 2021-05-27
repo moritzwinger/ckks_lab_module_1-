@@ -170,6 +170,33 @@ ckks_advanced.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sealexamples.dir/build.make CMakeFiles/sealexamples.dir/ckks_advanced.cpp.s
 .PHONY : ckks_advanced.cpp.s
 
+ckks_advanced_2.o: ckks_advanced_2.cpp.o
+
+.PHONY : ckks_advanced_2.o
+
+# target to build an object file
+ckks_advanced_2.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sealexamples.dir/build.make CMakeFiles/sealexamples.dir/ckks_advanced_2.cpp.o
+.PHONY : ckks_advanced_2.cpp.o
+
+ckks_advanced_2.i: ckks_advanced_2.cpp.i
+
+.PHONY : ckks_advanced_2.i
+
+# target to preprocess a source file
+ckks_advanced_2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sealexamples.dir/build.make CMakeFiles/sealexamples.dir/ckks_advanced_2.cpp.i
+.PHONY : ckks_advanced_2.cpp.i
+
+ckks_advanced_2.s: ckks_advanced_2.cpp.s
+
+.PHONY : ckks_advanced_2.s
+
+# target to generate assembly for a file
+ckks_advanced_2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sealexamples.dir/build.make CMakeFiles/sealexamples.dir/ckks_advanced_2.cpp.s
+.PHONY : ckks_advanced_2.cpp.s
+
 ckks_basics.o: ckks_basics.cpp.o
 
 .PHONY : ckks_basics.o
@@ -236,6 +263,9 @@ help:
 	@echo "... ckks_advanced.o"
 	@echo "... ckks_advanced.i"
 	@echo "... ckks_advanced.s"
+	@echo "... ckks_advanced_2.o"
+	@echo "... ckks_advanced_2.i"
+	@echo "... ckks_advanced_2.s"
 	@echo "... ckks_basics.o"
 	@echo "... ckks_basics.i"
 	@echo "... ckks_basics.s"

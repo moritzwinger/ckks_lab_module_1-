@@ -25,6 +25,8 @@ void ckks_module1();
 
 void ckks_module2();
 
+void ckks_module2a();
+
 /*
 Helper function: Prints the name of the example in a fancy banner.
 */

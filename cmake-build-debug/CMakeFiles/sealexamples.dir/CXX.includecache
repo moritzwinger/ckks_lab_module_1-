@@ -6,7 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/ckks_basics.cpp
+/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/ckks_advanced.cpp
+examples.h
+/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/examples.h
+
+/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/ckks_advanced_2.cpp
 examples.h
 /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/examples.h
 

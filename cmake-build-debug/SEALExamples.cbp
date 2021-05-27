@@ -85,6 +85,9 @@
 		<Unit filename="/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/ckks_advanced.cpp">
 			<Option target="sealexamples"/>
 		</Unit>
+		<Unit filename="/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/ckks_advanced_2.cpp">
+			<Option target="sealexamples"/>
+		</Unit>
 		<Unit filename="/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/ckks_basics.cpp">
 			<Option target="sealexamples"/>
 		</Unit>

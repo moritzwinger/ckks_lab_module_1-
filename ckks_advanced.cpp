@@ -16,7 +16,7 @@ void ckks_module2()
   parms.set_poly_modulus_degree(poly_modulus_degree);
   parms.set_coeff_modulus(CoeffModulus::Create(poly_modulus_degree, { 60, 40, 40, 60 }));
 
-  double scale = pow(2.0, 60);
+  double scale = pow(2.0, 30);
 
   SEALContext context(parms);
   print_parameters(context);
@@ -39,9 +39,9 @@ void ckks_module2()
   cout << "Number of slots: " << slot_count << endl;
 
   /*
-  We create plaintexts for 3.1, 4.1, 5.9 using an overload of CKKSEncoder::encode
-  that encodes the given floating-point value to every slot in the vector.
-  */
+   * We create plaintexts for 3.1, 4.1, 5.9 using an overload of CKKSEncoder::encode
+   * that encodes the given floating-point value to every slot in the vector.
+   */
   Plaintext plain_x, plain_y, plain_z;
   encoder.encode(3.1, scale, plain_x);
   encoder.encode(4.1, scale, plain_y);
@@ -82,24 +82,27 @@ void ckks_module2()
   evaluator.multiply(ctxt_xPlusy, ctxt_zPlusOne, ctxt_t);
   cout << "Scale of (x+y)*(z+1): " << log2(ctxt_t.scale()) << " bits" << endl;
 
- /*
-  * Compute (x+y) * (z+1) * 10 using ciphertext-ciphertext multiplication:
-  */
+  /*
+   * Compute (x+y) * (z+1) * 10 using ciphertext-plaintext multiplication:
+   */
   Ciphertext ctxt_result;
   print_line(__LINE__);
-  cout << "Compute (x+y) * (z+1) * 10  using ctxt-ctxt addition:" << endl;
-  Plaintext ptxt_ten;
-  encoder.encode(10, scale, ptxt_ten); //Note: original scale
-  evaluator.multiply_plain(ctxt_t, ptxt_ten, ctxt_result);
+  cout << "Compute (x+y) * (z+1) * 10  using ptxt-ctxt multiplication:" << endl;
+  Plaintext ptxt_d;
+  encoder.encode(10, scale, ptxt_d); //Note: original scale
+  evaluator.rescale_to_next_inplace(ctxt_t);
+  ctxt_t.scale() = pow(2.0, 30); // Manually override scale
+  evaluator.mod_switch_to_inplace(ptxt_d, ctxt_t.parms_id());
+  cout << "Scale of (x+y) * (z+1) after rescaling: " << log2(ctxt_t.scale()) << " bits" << endl;
+  evaluator.multiply_plain(ctxt_t, ptxt_d, ctxt_result); // gives 'std::invalid_argument: encrypted1 and encrypted2 parameter mismatch'
   cout << "Scale of (x+y) * (z+1) * 10: " << log2(ctxt_result.scale()) << " bits" << endl;
 
   /*
-   Decrypt, decode, and print the result.
+   * Decrypt, decode, and print the result.
    */
   Plaintext plain_result;
   decryptor.decrypt(ctxt_result, plain_result);
   vector<double> decoded_result;
   encoder.decode(plain_result, decoded_result);
   cout << "Computed result: " << decoded_result[0] << endl;
-
 }

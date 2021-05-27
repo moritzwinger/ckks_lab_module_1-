@@ -6,9 +6,9 @@
 using namespace std;
 using namespace seal;
 
-void ckks_module1()
+void ckks_module2a()
 {
-  print_example_banner("Module 1: CKKS Basics");
+  print_example_banner("Module 2: CKKS Advanced: Version 2");
 
   EncryptionParameters parms(scheme_type::ckks);
 
@@ -76,21 +76,23 @@ void ckks_module1()
   /*
    * Calculate (x+y) * (z+1) using ciphertext-ciphertext multiplication
    */
-  Ciphertext ctxt_mult1;
+  Ciphertext ctxt_t;
   print_line(__LINE__);
   cout << "Compute (x+y) * (z+1) using ctxt-ctxt multiplication:" << endl;
-  evaluator.multiply(ctxt_xPlusy, ctxt_zPlusOne, ctxt_mult1);
-  cout << "Scale of (x+y)*(z+1): " << log2(ctxt_mult1.scale()) << " bits" << endl;
+  evaluator.multiply(ctxt_xPlusy, ctxt_zPlusOne, ctxt_t);
+  cout << "Scale of (x+y)*(z+1): " << log2(ctxt_t.scale()) << " bits" << endl;
 
   /*
    * Compute (x+y) * (z+1) * 10 using ciphertext-ciphertext multiplication:
    */
   Ciphertext ctxt_result;
   print_line(__LINE__);
-  cout << "Compute (x+y) * (z+1) * 10  using ctxt-ptxt multiplication:" << endl;
-  Plaintext plain_ten;
-  encoder.encode(10, pow(2,60), plain_ten); //Note: different scale
-  evaluator.multiply_plain(ctxt_mult1, plain_ten, ctxt_result);
+  cout << "Compute (x+y) * (z+1) * 10  using ctxt-ctxt multiplication:" << endl;
+  Plaintext ptxt_d;
+  Ciphertext ctxt_d;
+  encoder.encode(10, pow(2,60), ptxt_d); //Note: original scale
+  encryptor.encrypt(ptxt_d, ctxt_d);
+  evaluator.multiply(ctxt_t, ctxt_d, ctxt_result); // gives 'std::invalid_argument: encrypted1 and encrypted2 parameter mismatch'
   cout << "Scale of (x+y) * (z+1) * 10: " << log2(ctxt_result.scale()) << " bits" << endl;
 
   /*

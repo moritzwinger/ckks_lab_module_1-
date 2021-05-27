@@ -21,6 +21,7 @@ if(SEAL_BUILD_EXAMPLES)
             PRIVATE
             ${CMAKE_CURRENT_LIST_DIR}/ckks_basics.cpp
             ${CMAKE_CURRENT_LIST_DIR}/ckks_advanced.cpp
+            ${CMAKE_CURRENT_LIST_DIR}/ckks_advanced_2.cpp
             )
 
     if(TARGET SEAL::seal)

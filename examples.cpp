@@ -17,6 +17,7 @@ int main() {
     cout << "+----------------------------+----------------------------+" << endl;
     cout << "| 1. Module 1                | ckks_basics.cpp            |" << endl;
     cout << "| 2. Module 2                | ckks_advanced.cpp          |" << endl;
+    cout << "| 3. Module 2 v2             | ckks_advanced_2.cpp        |" << endl;
     cout << "+----------------------------+----------------------------+" << endl;
 
     /*
@@ -32,16 +33,16 @@ int main() {
     int selection = 0;
     bool valid = true;
     do {
-      cout << endl << "> Run example (1) or exit (0): ";
+      cout << endl << "> Run example (1~3) or exit (0): ";
       if (!(cin >> selection)) {
         valid = false;
-      } else if (selection < 0 || selection > 2) {
+      } else if (selection < 0 || selection > 3) {
         valid = false;
       } else {
         valid = true;
       }
       if (!valid) {
-        cout << "  [Beep~~] valid option: type 0 ~ 2" << endl;
+        cout << "  [Beep~~] valid option: type 0 ~ 3" << endl;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
       }
@@ -52,6 +53,9 @@ int main() {
         break;
 
       case 2:ckks_module2();
+        break;
+
+      case 3:ckks_module2a();
         break;
 
       case 0:return 0;
