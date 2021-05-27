@@ -88,11 +88,11 @@ void ckks_module2a()
   Ciphertext ctxt_result;
   print_line(__LINE__);
   cout << "Compute (x+y) * (z+1) * 10  using ctxt-ctxt multiplication:" << endl;
-  Plaintext ptxt_d;
-  Ciphertext ctxt_d;
-  encoder.encode(10, pow(2,60), ptxt_d); //Note: original scale
-  encryptor.encrypt(ptxt_d, ctxt_d);
-  evaluator.multiply(ctxt_t, ctxt_d, ctxt_result); // gives 'std::invalid_argument: encrypted1 and encrypted2 parameter mismatch'
+  Plaintext ptxt_ten;
+  Ciphertext ctxt_ten;
+  encoder.encode(10, pow(2,60), ptxt_ten);
+  encryptor.encrypt(ptxt_ten, ctxt_ten);
+  evaluator.multiply(ctxt_ten, ctxt_t, ctxt_result);
   cout << "Scale of (x+y) * (z+1) * 10: " << log2(ctxt_result.scale()) << " bits" << endl;
 
   /*
