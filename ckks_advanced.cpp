@@ -92,7 +92,7 @@ void ckks_module2()
   encoder.encode(10, scale, ptxt_ten); //Note: original scale
   evaluator.rescale_to_next_inplace(ctxt_t);
   ctxt_t.scale() = pow(2.0, 30); // Manually override scale
-  evaluator.mod_switch_to_inplace(ptxt_ten, ctxt_t.parms_id());
+  evaluator.mod_switch_to_inplace(ptxt_ten,ctxt_t.parms_id());
   cout << "Scale of (x+y) * (z+1) after rescaling: " << log2(ctxt_t.scale()) << " bits" << endl;
   evaluator.multiply_plain(ctxt_t, ptxt_ten, ctxt_result);
   cout << "Scale of (x+y) * (z+1) * 10: " << log2(ctxt_result.scale()) << " bits" << endl;
