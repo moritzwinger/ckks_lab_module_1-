@@ -64,10 +64,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1
+CMAKE_SOURCE_DIR = /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -94,14 +94,14 @@ clean: CMakeFiles/sealexamples.dir/clean
 CMakeFiles/sealexamples.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sealexamples.dir/build.make CMakeFiles/sealexamples.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/sealexamples.dir/build.make CMakeFiles/sealexamples.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target sealexamples"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target sealexamples"
 .PHONY : CMakeFiles/sealexamples.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/sealexamples.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/cmake-build-debug/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/cmake-build-debug/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/sealexamples.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/sealexamples.dir/rule
 
 # Convenience name for target.

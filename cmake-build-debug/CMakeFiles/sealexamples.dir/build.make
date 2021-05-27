@@ -63,10 +63,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1
+CMAKE_SOURCE_DIR = /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/cmake-build-debug
+CMAKE_BINARY_DIR = /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/sealexamples.dir/depend.make
@@ -79,29 +79,29 @@ include CMakeFiles/sealexamples.dir/flags.make
 
 CMakeFiles/sealexamples.dir/examples.cpp.o: CMakeFiles/sealexamples.dir/flags.make
 CMakeFiles/sealexamples.dir/examples.cpp.o: ../examples.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/sealexamples.dir/examples.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sealexamples.dir/examples.cpp.o -c /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/examples.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/sealexamples.dir/examples.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sealexamples.dir/examples.cpp.o -c /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/examples.cpp
 
 CMakeFiles/sealexamples.dir/examples.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sealexamples.dir/examples.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/examples.cpp > CMakeFiles/sealexamples.dir/examples.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/examples.cpp > CMakeFiles/sealexamples.dir/examples.cpp.i
 
 CMakeFiles/sealexamples.dir/examples.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sealexamples.dir/examples.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/examples.cpp -o CMakeFiles/sealexamples.dir/examples.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/examples.cpp -o CMakeFiles/sealexamples.dir/examples.cpp.s
 
 CMakeFiles/sealexamples.dir/ckks_basics.cpp.o: CMakeFiles/sealexamples.dir/flags.make
 CMakeFiles/sealexamples.dir/ckks_basics.cpp.o: ../ckks_basics.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sealexamples.dir/ckks_basics.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sealexamples.dir/ckks_basics.cpp.o -c /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/ckks_basics.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/sealexamples.dir/ckks_basics.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sealexamples.dir/ckks_basics.cpp.o -c /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/ckks_basics.cpp
 
 CMakeFiles/sealexamples.dir/ckks_basics.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sealexamples.dir/ckks_basics.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/ckks_basics.cpp > CMakeFiles/sealexamples.dir/ckks_basics.cpp.i
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/ckks_basics.cpp > CMakeFiles/sealexamples.dir/ckks_basics.cpp.i
 
 CMakeFiles/sealexamples.dir/ckks_basics.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sealexamples.dir/ckks_basics.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/ckks_basics.cpp -o CMakeFiles/sealexamples.dir/ckks_basics.cpp.s
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/ckks_basics.cpp -o CMakeFiles/sealexamples.dir/ckks_basics.cpp.s
 
 # Object files for target sealexamples
 sealexamples_OBJECTS = \
@@ -116,7 +116,7 @@ bin/sealexamples: CMakeFiles/sealexamples.dir/ckks_basics.cpp.o
 bin/sealexamples: CMakeFiles/sealexamples.dir/build.make
 bin/sealexamples: /usr/local/lib/libseal-3.6.a
 bin/sealexamples: CMakeFiles/sealexamples.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable bin/sealexamples"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable bin/sealexamples"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sealexamples.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -129,6 +129,6 @@ CMakeFiles/sealexamples.dir/clean:
 .PHONY : CMakeFiles/sealexamples.dir/clean
 
 CMakeFiles/sealexamples.dir/depend:
-	cd /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1 /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1 /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/cmake-build-debug /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/cmake-build-debug /Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/cmake-build-debug/CMakeFiles/sealexamples.dir/DependInfo.cmake --color=$(COLOR)
+	cd /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1 /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1 /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/cmake-build-debug /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/cmake-build-debug /Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/cmake-build-debug/CMakeFiles/sealexamples.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/sealexamples.dir/depend
 

@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/ckks_basics.cpp" "/Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/cmake-build-debug/CMakeFiles/sealexamples.dir/ckks_basics.cpp.o"
-  "/Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/examples.cpp" "/Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/cmake-build-debug/CMakeFiles/sealexamples.dir/examples.cpp.o"
+  "/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/ckks_basics.cpp" "/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/cmake-build-debug/CMakeFiles/sealexamples.dir/ckks_basics.cpp.o"
+  "/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/examples.cpp" "/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/cmake-build-debug/CMakeFiles/sealexamples.dir/examples.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

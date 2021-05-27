@@ -6,13 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/examples.cpp
+/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/ckks_basics.cpp
 examples.h
-/Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/examples.h
+/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/examples.h
 
-/Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/examples.h
+/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/examples.h
 seal/seal.h
-/Users/mwinger/Desktop/MasterThesis/ckk_s_lab_module_1/seal/seal.h
+/Users/mwinger/Desktop/MasterThesis/ckks_lab_module_1/seal/seal.h
 algorithm
 -
 chrono

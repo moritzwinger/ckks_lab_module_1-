@@ -17,7 +17,7 @@ int main()
         cout << "+---------------------------------------------------------+" << endl;
         cout << "| Examples                   | Source Files               |" << endl;
         cout << "+----------------------------+----------------------------+" << endl;
-        cout << "| 1. CKKS Basics             | 4_ckks_basics.cpp          |" << endl;
+        cout << "| 1. CKKS Basics             | ckks_basics.cpp          |" << endl;
         cout << "+----------------------------+----------------------------+" << endl;
 
         /*
