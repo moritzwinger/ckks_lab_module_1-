@@ -16,7 +16,7 @@ void ckks_module1()
   parms.set_poly_modulus_degree(poly_modulus_degree);
   parms.set_coeff_modulus(CoeffModulus::Create(poly_modulus_degree, { 60, 40, 40, 60 }));
 
-  double scale = pow(2.0, 20);
+  double scale = pow(2.0, 30);
 
   SEALContext context(parms);
   print_parameters(context);
@@ -89,7 +89,7 @@ void ckks_module1()
   print_line(__LINE__);
   cout << "Compute (x+y) * (z+1) * 10  using ctxt-ptxt multiplication:" << endl;
   Plaintext plain_ten;
-  encoder.encode(10, pow(2,40), plain_ten); //Note: different scale
+  encoder.encode(10, pow(2,60), plain_ten); //Note: different scale
   evaluator.multiply_plain(ctxt_mult1, plain_ten, ctxt_result);
   cout << "Scale of (x+y) * (z+1) * 10: " << log2(ctxt_result.scale()) << " bits" << endl;
 
