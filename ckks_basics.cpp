@@ -8,7 +8,7 @@ using namespace seal;
 
 void example_ckks_basics()
 {
-  print_example_banner("Example: CKKS Basics");
+  print_example_banner("Module 1: CKKS Basics");
 
   EncryptionParameters parms(scheme_type::ckks);
 
@@ -37,10 +37,6 @@ void example_ckks_basics()
   CKKSEncoder encoder(context);
   size_t slot_count = encoder.slot_count();
   cout << "Number of slots: " << slot_count << endl;
-
-
-  cout << "Here";
-
 
   /*
   We create plaintexts for 3.1, 4.1, 5.9 using an overload of CKKSEncoder::encode
@@ -97,9 +93,6 @@ void example_ckks_basics()
   evaluator.add_plain(ctxt_mult1, plain_ten, ctxt_result);
   cout << "Scale of (x+y) * (z+1) * 10: " << log2(ctxt_result.scale()) << " bits" << endl;
 
-  /*
-   * Decrypt, decode and print result
-   */
   /*
    Decrypt, decode, and print the result.
    */
