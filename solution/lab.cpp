@@ -219,26 +219,26 @@ int attack() {
   std::cout << "key recovery ..." << std::endl;
   MemoryPoolHandle pool = MemoryManager::GetPool();
   // rhs = ptxt_enc - ciphertext.b
-  auto rhs = zero_polynomial(poly_modulus_degree, coeff_mod_count, pool);
-  sub(ptxt_enc.data(), ctxt_res.data(0), coeff_count, coeff_modulus, rhs);
+  seal::util::Pointer<unsigned long, void> rhs = util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool);
+  sub(ptxt_enc.data(), ctxt_res.data(0), coeff_count, coeff_modulus, rhs.get());
 
-  auto ca = zero_polynomial(poly_modulus_degree, coeff_mod_count, pool);
-  copy(ctxt_res.data(1), coeff_count, coeff_modulus.size(), ca);
+  auto ca =  util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool);
+  copy(ctxt_res.data(1), coeff_count, coeff_modulus.size(), ca.get());
 
   std::cout << "compute ca^{-1} ..." << std::endl;
-  auto ca_inv = zero_polynomial(poly_modulus_degree, coeff_mod_count, pool);
+  auto ca_inv = util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool);
 
-  bool has_inv = inverse(ca, coeff_count, coeff_modulus, ca_inv);
+  bool has_inv = inverse(ca.get(), coeff_count, coeff_modulus, ca_inv.get());
   if (!has_inv) {
     throw std::logic_error("ciphertext[1] has no inverse");
   }
 
   // The recovered secret: key_guess = ciphertext.a^{-1} * rhs
   std::cout << "compute (m' - cb) * ca^{-1} ..." << std::endl;
-  auto key_guess = zero_polynomial(poly_modulus_degree, coeff_mod_count, pool);
-  multiply(rhs, ca_inv, coeff_count, coeff_modulus, key_guess);
+  auto key_guess = util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool);
+  multiply(rhs.get(), ca_inv.get(), coeff_count, coeff_modulus, key_guess.get());
 
-  bool is_found = util::is_equal_uint(key_guess,
+  bool is_found = util::is_equal_uint(key_guess.get(),
                                       secret_key.data().data(),
                                       coeff_count*coeff_mod_count);
 

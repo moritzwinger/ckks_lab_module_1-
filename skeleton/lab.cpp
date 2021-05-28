@@ -109,7 +109,10 @@ int attack() {
   // Create a memory pool which all seal_polynomial's will share
   MemoryPoolHandle pool = MemoryManager::GetPool();
 
-  seal_polynomial key_guess = zero_polynomial(poly_modulus_degree, coeff_mod_count, pool);
+  // This creates a pointer to a seal_polynomial that has all coefficients set to zero
+  // You can access the underlying seal_polynomial using .get(), but you cannot assign/move the "gotten" polynomial
+  seal::util::Pointer<unsigned long, void> key_guess = util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool);
+  
   // TODO: Calculate the secret key as described in the lab sheet
 
   // Confirm that the key is correct

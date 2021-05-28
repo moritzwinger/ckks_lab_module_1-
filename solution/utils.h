@@ -40,16 +40,19 @@ double maxDiff(std::vector<cx_double> const &in0, std::vector<cx_double> const &
 /// Find the relative error (in0-in1)/in1 between two vectors in0 and in1
 double relError(std::vector<cx_double> const &in0, std::vector<cx_double> const &in1);
 
-typedef seal::util::ConstCoeffIter const_seal_polynomial;
+/// Datatype for a seal polynomial. Due to what seems to be a bug in SEAL, these cannot be assigned or copied with =
 typedef seal::util::CoeffIter seal_polynomial;
 
-/// Creates an (eval_rep) polynomial with all zero coefficients
+/// Const version of seal_polynomial
+typedef seal::util::ConstCoeffIter const_seal_polynomial;
+
+/// copy result = a (this lets you get rid of the "const" in const_seal_polynomial)
+/// \param a element to copy
 /// \param coeff_count The number of coefficients in the polynomial (i.e., poly_modulus_degree)
 /// \param coeff_modulus_count The number of coefficient moduli q_i (i.e., coeff_modulus.size() )
-/// \param pool Handle to a memory pool (create once with MemoryManager::GetPool(), then keep reusing)
-/// \return (eval_rep) polynomial with all zero coefficients
-seal_polynomial zero_polynomial(size_t coeff_count, size_t coeff_modulus_count, seal::MemoryPoolHandle pool);
-
+/// \param result Element to store result in
+void copy(const_seal_polynomial a, std::size_t coeff_count, std::size_t coeff_modulus_count,
+          seal_polynomial result);
 /// Converts a polynomial from standard representation into a special representation (FFT/NTT) used for fast evaluation
 /// This is the representation ctxts will generally have in SEAL
 /// \param a element to convert
@@ -100,14 +103,6 @@ void add(const_seal_polynomial a, const_seal_polynomial b,
 void sub(const_seal_polynomial a, const_seal_polynomial b,
          std::size_t coeff_count, std::vector<seal::Modulus> const &coeff_modulus,
          seal_polynomial result);
-
-/// copy result = a (this lets you get rid of the "const" in const_seal_polynomial)
-/// \param a element to copy
-/// \param coeff_count The number of coefficients in the polynomial (i.e., poly_modulus_degree)
-/// \param coeff_modulus_count The number of coefficient moduli q_i (i.e., coeff_modulus.size() )
-/// \param result Element to store result in
-void copy(const_seal_polynomial a, std::size_t coeff_count, std::size_t coeff_modulus_count,
-          seal_polynomial result);
 
 /*
  * Helper function: Allows using a vector in std::cout << some_vector std::endl;
