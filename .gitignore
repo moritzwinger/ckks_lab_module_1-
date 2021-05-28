@@ -1,0 +1,13 @@
+.DS_Store
+.idea
+cmake-build-debug/
+CMakeFiles
+_deps
+build
+docs
+doc/*
+!doc/clion
+!doc/doxygen
+/test/CMakeFiles/
+*.vpp*
+/cmake-build*

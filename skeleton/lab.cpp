@@ -9,10 +9,10 @@ void ckks_module3a();
 void ckks_module3b();
 
 int main() {
-//  ckks_module1();
+  ckks_module1();
   ckks_module2();
-//  ckks_module3a();
-//  ckks_module3b();
+  ckks_module3a();
+  ckks_module3b();
   return 0;
 }
 
