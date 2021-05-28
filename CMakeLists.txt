@@ -1,34 +1,18 @@
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT license.
-
 cmake_minimum_required(VERSION 3.12)
 
-project(SEALExamples VERSION 3.6.4 LANGUAGES CXX)
+project(AppliedCryptoFHELab LANGUAGES CXX)
 
-# If not called from root CMakeLists.txt
-if(NOT DEFINED SEAL_BUILD_EXAMPLES)
-    set(SEAL_BUILD_EXAMPLES ON)
+# Import Microsoft SEAL
+find_package(SEAL 3.6.5 EXACT REQUIRED)
 
-    # Import Microsoft SEAL
-    find_package(SEAL 3.6.4 EXACT REQUIRED)
+add_executable(lab lab.cpp util.h)
 
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin)
+if(TARGET SEAL::seal)
+    target_link_libraries(lab PRIVATE SEAL::seal)
+elseif(TARGET SEAL::seal_shared)
+    target_link_libraries(lab PRIVATE SEAL::seal_shared)
+else()
+    message(FATAL_ERROR "Cannot find target SEAL::seal or SEAL::seal_shared")
 endif()
 
-if(SEAL_BUILD_EXAMPLES)
-    add_executable(sealexamples examples.cpp)
-    target_sources(sealexamples
-            PRIVATE
-            ${CMAKE_CURRENT_LIST_DIR}/ckks_basics.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/ckks_advanced.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/ckks_advanced_2.cpp
-            )
-
-    if(TARGET SEAL::seal)
-        target_link_libraries(sealexamples PRIVATE SEAL::seal)
-    elseif(TARGET SEAL::seal_shared)
-        target_link_libraries(sealexamples PRIVATE SEAL::seal_shared)
-    else()
-        message(FATAL_ERROR "Cannot find target SEAL::seal or SEAL::seal_shared")
-    endif()
-endif()
+add_subdirectory(seal_examples)
