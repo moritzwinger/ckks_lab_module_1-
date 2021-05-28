@@ -4,15 +4,21 @@
 
 using namespace seal;
 
-bool inv_dcrtpoly(util::ConstCoeffIter operand, std::size_t coeff_count, std::vector<Modulus> const& coeff_modulus,
-                  util::CoeffIter result) {
+// compute a^{-1}, where a is a double-CRT polynomial whose evaluation representation
+// is in a. The double-CRT representation in SEAL is stored as a flat array of
+// length coeff_count * modulus_count:
+//    [ 0 .. coeff_count-1 , coeff_count .. 2*coeff_count-1, ... ]
+//      ^--- a (mod p0)    , ^--- a (mod p1),              ,  ...
+// return if the inverse exists, and result is also in evaluation representation
+bool inverse(util::ConstCoeffIter a, std::size_t coeff_count, std::vector<Modulus> const& coeff_modulus,
+             util::CoeffIter result) {
   bool * has_inv = new bool[coeff_modulus.size()];
   std::fill_n(has_inv, coeff_modulus.size(), true);
 #pragma omp parallel for
   for (size_t j = 0; j < coeff_modulus.size(); j++) {
     for (size_t i = 0; i < coeff_count && has_inv[j]; i++) {
       uint64_t inv = 0;
-      if (util::try_invert_uint_mod(operand[i + (j * coeff_count)], coeff_modulus[j], inv)) {
+      if (util::try_invert_uint_mod(a[i + (j * coeff_count)], coeff_modulus[j], inv)) {
         result[i + (j * coeff_count)] = inv;
       } else {
         has_inv[j] = false;
@@ -26,8 +32,8 @@ bool inv_dcrtpoly(util::ConstCoeffIter operand, std::size_t coeff_count, std::ve
   return true;
 }
 
-void mul_dcrtpoly(util::ConstCoeffIter a, util::ConstCoeffIter b, std::size_t coeff_count,
-                  std::vector<Modulus> const& coeff_modulus, util::CoeffIter result) {
+void multiply(util::ConstCoeffIter a, util::ConstCoeffIter b, std::size_t coeff_count,
+              std::vector<Modulus> const& coeff_modulus, util::CoeffIter result) {
 #pragma omp parallel for
   for (size_t j = 0; j < coeff_modulus.size(); j++) {
     util::dyadic_product_coeffmod(a + (j * coeff_count),
@@ -38,8 +44,8 @@ void mul_dcrtpoly(util::ConstCoeffIter a, util::ConstCoeffIter b, std::size_t co
   }
 }
 
-void add_dcrtpoly(util::ConstCoeffIter a, util::ConstCoeffIter b, std::size_t coeff_count,
-                  std::vector<Modulus> const& coeff_modulus, util::CoeffIter result) {
+void add(util::ConstCoeffIter a, util::ConstCoeffIter b, std::size_t coeff_count,
+         std::vector<Modulus> const& coeff_modulus, util::CoeffIter result) {
 #pragma omp parallel for
   for (size_t j = 0; j < coeff_modulus.size(); j++) {
     util::add_poly_coeffmod(a + (j * coeff_count),
@@ -50,8 +56,8 @@ void add_dcrtpoly(util::ConstCoeffIter a, util::ConstCoeffIter b, std::size_t co
   }
 }
 
-void sub_dcrtpoly(util::ConstCoeffIter a, util::ConstCoeffIter b, std::size_t coeff_count,
-                  std::vector<Modulus> const& coeff_modulus, util::CoeffIter result) {
+void sub(util::ConstCoeffIter a, util::ConstCoeffIter b, std::size_t coeff_count,
+         std::vector<Modulus> const& coeff_modulus, util::CoeffIter result) {
 #pragma omp parallel for
   for (size_t j = 0; j < coeff_modulus.size(); j++) {
     util::sub_poly_coeffmod(a + (j * coeff_count),
@@ -62,8 +68,8 @@ void sub_dcrtpoly(util::ConstCoeffIter a, util::ConstCoeffIter b, std::size_t co
   }
 }
 
-void assign_dcrtpoly(util::ConstCoeffIter a, std::size_t coeff_count, std::size_t coeff_modulus_count,
-                     util::CoeffIter result) {
+void copy(util::ConstCoeffIter a, std::size_t coeff_count, std::size_t coeff_modulus_count,
+          util::CoeffIter result) {
 #pragma omp parallel for
   for (size_t i = 0; i < coeff_modulus_count; i++) {
     util::set_poly(a + (i * coeff_count), coeff_count, 1, result + (i * coeff_count));
@@ -95,7 +101,7 @@ long double infty_norm(util::ConstCoeffIter a, SEALContext::ContextData const* c
   long double max = 0;
 
   auto aCopy(util::allocate_zero_poly(coeff_count, coeff_mod_count, MemoryManager::GetPool()));
-  assign_dcrtpoly(a, coeff_count, coeff_mod_count, aCopy.get());
+  copy(a, coeff_count, coeff_mod_count, aCopy.get());
 
   // CRT-compose the polynomial
   context_data->rns_tool()->base_q()->compose_array(aCopy.get(), coeff_count, MemoryManager::GetPool());
@@ -141,7 +147,7 @@ long double l2_norm(util::ConstCoeffIter a, SEALContext::ContextData const* cont
   long double sum = 0;
 
   auto aCopy(util::allocate_zero_poly(coeff_count, coeff_mod_count, MemoryManager::GetPool()));
-  assign_dcrtpoly(a, coeff_count, coeff_mod_count, aCopy.get());
+  copy(a, coeff_count, coeff_mod_count, aCopy.get());
 
   // CRT-compose the polynomial
   context_data->rns_tool()->base_q()->compose_array(aCopy.get(), coeff_count, MemoryManager::GetPool());

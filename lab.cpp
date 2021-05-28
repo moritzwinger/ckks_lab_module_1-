@@ -9,10 +9,10 @@ void ckks_module3a();
 void ckks_module3b();
 
 int main() {
-  ckks_module1();
+//  ckks_module1();
   ckks_module2();
-  ckks_module3a();
-  ckks_module3b();
+//  ckks_module3a();
+//  ckks_module3b();
   return 0;
 }
 
@@ -264,7 +264,7 @@ int attack(uint32_t logN = 15,      // Ring size
   Plaintext ptxt_diff;
   ptxt_diff.parms_id() = parms_id_zero;
   ptxt_diff.resize(util::mul_safe(coeff_count, coeff_modulus.size()));
-  sub_dcrtpoly(ptxt_enc.data(), ptxt_res.data(), coeff_count, coeff_modulus, ptxt_diff.data());
+  sub(ptxt_enc.data(), ptxt_res.data(), coeff_count, coeff_modulus, ptxt_diff.data());
 
   to_coeff_rep(ptxt_diff.data(), coeff_count, coeff_mod_count, small_ntt_tables);
   long double err_norm = infty_norm(ptxt_diff.data(), context_data.get());
@@ -276,15 +276,15 @@ int attack(uint32_t logN = 15,      // Ring size
 
   // rhs = ptxt_enc - ciphertext.b
   auto rhs(util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool));
-  sub_dcrtpoly(ptxt_enc.data(), ctxt_res.data(0), coeff_count, coeff_modulus, rhs.get());
+  sub(ptxt_enc.data(), ctxt_res.data(0), coeff_count, coeff_modulus, rhs.get());
 
   auto ca(util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool));
-  assign_dcrtpoly(ctxt_res.data(1), coeff_count, coeff_modulus.size(), ca.get());
+  copy(ctxt_res.data(1), coeff_count, coeff_modulus.size(), ca.get());
 
   std::cout << "compute ca^{-1} ..." << std::endl;
   auto ca_inv(util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool));
 
-  bool has_inv = inv_dcrtpoly(ca.get(), coeff_count, coeff_modulus, ca_inv.get());
+  bool has_inv = inverse(ca.get(), coeff_count, coeff_modulus, ca_inv.get());
   if (!has_inv) {
     throw std::logic_error("ciphertext[1] has no inverse");
   }
@@ -292,7 +292,7 @@ int attack(uint32_t logN = 15,      // Ring size
   // The recovered secret: key_guess = ciphertext.a^{-1} * rhs
   std::cout << "compute (m' - cb) * ca^{-1} ..." << std::endl;
   auto key_guess(util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool));
-  mul_dcrtpoly(rhs.get(), ca_inv.get(), coeff_count, coeff_modulus, key_guess.get());
+  multiply(rhs.get(), ca_inv.get(), coeff_count, coeff_modulus, key_guess.get());
 
   bool is_found = util::is_equal_uint(key_guess.get(),
                                       secret_key.data().data(),
@@ -306,14 +306,14 @@ int attack(uint32_t logN = 15,      // Ring size
 }
 
 void ckks_module2() {
+  std::cout << "\n\n Module 2: Attacking the CKKS Scheme" << std::endl;
   uint32_t logN = 15;      // ring size
   uint32_t scaleBits = 40; // bit-length of scale
   double plainBound = 1.0; // upper bound on plaintext numbers
   int32_t evalDeg = -1;    // degree to evaluate, default to all
 
 
-  int iterations = 100;
-
+  int iterations = 10;
   int success = 0;
   for (int i = 0; i < iterations; i++) {
     if (attack(logN, scaleBits, plainBound, evalDeg)) {

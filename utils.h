@@ -23,6 +23,97 @@
 #include <seal/modulus.h>
 #include <seal/util/iterator.h>
 
+typedef std::complex<double> cx_double;
+
+/// Generate a random vector of complex numbers with a given size
+/// \param array Vector to store results into
+/// \param n    Size of vector
+/// \param rad  Radius (distance from origin of complex number plane) the complex numbers should have
+void randomComplexVector(std::vector<cx_double>& array, size_t n, double rad = 1.0);
+
+/// Find the largest element of a vector
+double largestElm(std::vector<cx_double> const& vec);
+
+/// Find the largest element in (in0 - in1), i.e. their largest difference
+double maxDiff(std::vector<cx_double> const& in0, std::vector<cx_double> const& in1);
+
+/// Find the relative error (in0-in1)/in1 between two vectors in0 and in1
+double relError(std::vector<cx_double> const& in0, std::vector<cx_double> const& in1);
+
+
+typedef seal::util::ConstCoeffIter const_seal_polynomial;
+typedef seal::util::CoeffIter seal_polynomial;
+
+/// Infinity norm of a polynomial
+long double infty_norm(const_seal_polynomial a, seal::SEALContext::ContextData const *context_data);
+
+/// L2 norm of a polynomial
+long double l2_norm(const_seal_polynomial a, seal::SEALContext::ContextData const *context_data);
+
+/// Compute the multiplicative inverse of a polynomial in the ring (if the inverse exists)
+/// \param The element (polynomial) to invert
+/// \param coeff_count The number of coefficients in the polynomial (i.e., poly_modulus_degree)
+/// \param coeff_modulus The coefficient modulus q
+/// \param result Element to store result in
+/// \return true if the inverse exists and could be computed
+bool inverse(const_seal_polynomial a, std::size_t coeff_count, std::vector<seal::Modulus> const &coeff_modulus,
+             seal_polynomial result);
+
+/// compute a*b, requires a and b are in eval_rep form
+void multiply(const_seal_polynomial a, const_seal_polynomial b,
+              std::size_t coeff_count, std::vector<seal::Modulus> const &coeff_modulus,
+              seal_polynomial result);
+
+/// compute a+b, requires a and b are in eval_rep form
+void add(const_seal_polynomial a, const_seal_polynomial b,
+         std::size_t coeff_count, std::vector<seal::Modulus> const &coeff_modulus,
+         seal_polynomial result);
+
+/// compute a-b, requires a and b are in eval_rep form
+void sub(const_seal_polynomial a, const_seal_polynomial b,
+         std::size_t coeff_count, std::vector<seal::Modulus> const &coeff_modulus,
+         seal_polynomial result);
+
+/// copy result = a (this lets you get rid of the "const" in const_seal_polynomial)
+/// \param a element to copy
+/// \param coeff_count The number of coefficients in the polynomial (i.e., poly_modulus_degree)
+/// \param coeff_modulus_count The number of coefficient moduli q_i (i.e., coeff_modulus.size() )
+/// \param result Element to store result in
+void copy(const_seal_polynomial a, std::size_t coeff_count, std::size_t coeff_modulus_count,
+          seal_polynomial result);
+
+// Converts a polynomial from standard representation into a special representation (FFT/NTT) used for fast evaluation
+/// \param a element to convert
+/// \param coeff_count The number of coefficients in the polynomial (i.e., poly_modulus_degree)
+/// \param coeff_modulus_count The number of coefficient moduli q_i (i.e., coeff_modulus.size() )
+/// \param small_ntt_tables special helper (get via context.get_context_data(ctxt.parms_id())->small_ntt_tables())
+void to_eval_rep(seal_polynomial a,
+                 size_t coeff_count,
+                 size_t coeff_modulus_count,
+                 seal::util::NTTTables const *small_ntt_tables);
+
+// Converts a polynomial from eval_rep back into standard coefficient representation
+/// \param a element to convert
+/// \param coeff_count The number of coefficients in the polynomial (i.e., poly_modulus_degree)
+/// \param coeff_modulus_count The number of coefficient moduli q_i (i.e., coeff_modulus.size() )
+/// \param small_ntt_tables special helper (get via context.get_context_data(ctxt.parms_id())->small_ntt_tables())
+void to_coeff_rep(seal_polynomial a,
+                  size_t coeff_count,
+                  size_t coeff_modulus_count,
+                  seal::util::NTTTables const *small_ntt_tables);
+
+
+/*
+ * Helper function: Allows using a vector in std::cout << some_vector std::endl; 
+ */
+template<typename T>
+std::ostream &operator<<(std::ostream &os, const std::vector<T> &v) {
+  using namespace std;
+  os << "[";
+  copy(v.begin(), v.end(), ostream_iterator<T>(os, ", "));
+  os << "]";
+  return os;
+}
 
 /*
 Helper function: Prints the parameters in a SEALContext.
@@ -155,72 +246,4 @@ Helper function: Print line number.
 inline void print_line(int line_number)
 {
     std::cout << "Line " << std::setw(3) << line_number << " --> ";
-}
-
-/// Low-Level Utilities for Attack
-
-
-typedef std::complex<double> cx_double;
-
-void randomComplexVector(std::vector<cx_double>& array, size_t n, double rad = 1.0);
-double largestElm(std::vector<cx_double> const& vec);
-double maxDiff(std::vector<cx_double> const& in0, std::vector<cx_double> const& in1);
-double relError(std::vector<cx_double> const& in0, std::vector<cx_double> const& in1);
-
-
-
-
-// compute a^{-1}, where a is a double-CRT polynomial whose evaluation representation
-// is in aEvalRep. The double-CRT representation in SEAL is stored as a flat array of
-// length coeff_count * modulus_count:
-//    [ 0 .. coeff_count-1 , coeff_count .. 2*coeff_count-1, ... ]
-//      ^--- a (mod p0)    , ^--- a (mod p1),              ,  ...
-// return if the inverse exists, and result is also in evaluation representation
-bool inv_dcrtpoly(seal::util::ConstCoeffIter aEvalRep, std::size_t coeff_count, std::vector<seal::Modulus> const &coeff_modulus,
-                  seal::util::CoeffIter result);
-
-// compute a*b, where both a and b are in evaluation representation
-void mul_dcrtpoly(seal::util::ConstCoeffIter a, seal::util::ConstCoeffIter b,
-                  std::size_t coeff_count, std::vector<seal::Modulus> const &coeff_modulus,
-                  seal::util::CoeffIter result);
-
-// compute a+b, where both a and b are in the same representation
-void add_dcrtpoly(seal::util::ConstCoeffIter a, seal::util::ConstCoeffIter b,
-                  std::size_t coeff_count, std::vector<seal::Modulus> const &coeff_modulus,
-                  seal::util::CoeffIter result);
-
-// compute a-b, where both a and b are in the same representation
-void sub_dcrtpoly(seal::util::ConstCoeffIter a, seal::util::ConstCoeffIter b,
-                  std::size_t coeff_count, std::vector<seal::Modulus> const &coeff_modulus,
-                  seal::util::CoeffIter result);
-
-// assign result = a
-void assign_dcrtpoly(seal::util::ConstCoeffIter a, std::size_t coeff_count, std::size_t coeff_modulus_count,
-                     seal::util::CoeffIter result);
-
-void to_eval_rep(seal::util::CoeffIter a,
-                 size_t coeff_count,
-                 size_t coeff_modulus_count,
-                 seal::util::NTTTables const *small_ntt_tables);
-
-void to_coeff_rep(seal::util::CoeffIter a,
-                  size_t coeff_count,
-                  size_t coeff_modulus_count,
-                  seal::util::NTTTables const *small_ntt_tables);
-
-long double infty_norm(seal::util::ConstCoeffIter a, seal::SEALContext::ContextData const *context_data);
-
-long double l2_norm(seal::util::ConstCoeffIter a, seal::SEALContext::ContextData const *context_data);
-
-std::string poly_to_string(std::uint64_t const *value, seal::EncryptionParameters const &parms);
-
-void print_poly(std::uint64_t const *value, seal::EncryptionParameters const &parms, size_t max_count = 0);
-
-template<typename T>
-std::ostream &operator<<(std::ostream &os, const std::vector<T> &v) {
-  using namespace std;
-  os << "[";
-  copy(v.begin(), v.end(), ostream_iterator<T>(os, ", "));
-  os << "]";
-  return os;
 }
