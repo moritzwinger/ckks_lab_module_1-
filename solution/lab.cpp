@@ -340,6 +340,18 @@ void ckks_module3a() {
   evaluator.multiply(ctxt_xPlusy, ctxt_zTimesFive, ctxt_t);
   cout << "Scale of (x+y)*(z*5): " << log2(ctxt_t.scale()) << " bits" << endl;
 
+  /*
+   * Try to compute ((x+y) * (z*5)) + 10 using ciphertext-ciphertext addition:
+   */
+  try {
+    Ciphertext ctxt_result;
+    print_line(__LINE__);
+    cout << "Trying to compute ((x+y) * (z*5)) + 10 using ciphertext-ciphertext addition:" << endl;
+    evaluator.add(ctxt_t, ctxt_ten, ctxt_result);
+  } catch (const std::exception &e) {
+    print_line(__LINE__);
+    cout << "Computing ((x+y) * (z*5)) + 10 using ciphertext-ciphertext addition failed: " << e.what() << endl;
+  }
 
   /*
   * Rescale ((x+y) * (z*5))
@@ -352,16 +364,16 @@ void ckks_module3a() {
 
 
   /*
-   * Try to compute ((x+y) * (z*5)) + 10 using ciphertext-ciphertext addition:
+   * Try to compute ((x+y) * (z*5)) + 10 using ciphertext-ciphertext addition after rescaling:
    */
   try {
     Ciphertext ctxt_result;
     print_line(__LINE__);
-    cout << "Trying to compute ((x+y) * (z*5)) + 10 using ciphertext-ciphertext addition:" << endl;
+    cout << "Trying to compute ((x+y) * (z*5)) + 10 using ciphertext-ciphertext addition after rescaling:" << endl;
     evaluator.add(ctxt_t, ctxt_ten, ctxt_result);
   } catch (const std::exception &e) {
     print_line(__LINE__);
-    cout << "Computing ((x+y) * (z*5)) + 10 using ciphertext-ciphertext addition failed: " << e.what() << endl;
+    cout << "Computing ((x+y) * (z*5)) + 10 using ciphertext-ciphertext addition after rescaling failed: " << e.what() << endl;
   }
 
   /*

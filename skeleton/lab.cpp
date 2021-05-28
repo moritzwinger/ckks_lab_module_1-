@@ -112,7 +112,7 @@ int attack() {
   // This creates a pointer to a seal_polynomial that has all coefficients set to zero
   // You can access the underlying seal_polynomial using .get(), but you cannot assign/move the "gotten" polynomial
   seal::util::Pointer<unsigned long, void> key_guess = util::allocate_zero_poly(poly_modulus_degree, coeff_mod_count, pool);
-  
+
   // TODO: Calculate the secret key as described in the lab sheet
 
   // Confirm that the key is correct
