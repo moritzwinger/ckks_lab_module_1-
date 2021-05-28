@@ -380,3 +380,7 @@ bool isEqual(std::complex<double> const* m0, std::complex<double> const* m1, siz
   }
   return true;
 }
+
+seal_polynomial zero_polynomial(size_t coeff_count, size_t coeff_modulus_count, seal::MemoryPoolHandle pool) {
+  return util::allocate_zero_poly(coeff_count, coeff_modulus_count, pool);
+}
