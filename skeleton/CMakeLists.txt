@@ -5,7 +5,7 @@ project(AppliedCryptoFHELab LANGUAGES CXX)
 # Import Microsoft SEAL
 find_package(SEAL 3.6.5 EXACT REQUIRED)
 
-add_executable(lab lab.cpp utils.cpp)
+add_executable(lab lab.cpp utils.h utils.cpp)
 
 if(TARGET SEAL::seal)
     target_link_libraries(lab PRIVATE SEAL::seal)

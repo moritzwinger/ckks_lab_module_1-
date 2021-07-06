@@ -150,9 +150,6 @@ int attack() {
   PublicKey public_key;
   keygen.create_public_key(public_key);
   SecretKey secret_key = keygen.secret_key();
-  RelinKeys relin_keys;
-  keygen.create_relin_keys(relin_keys);
-  GaloisKeys gal_keys;
 
   Encryptor encryptor(context, public_key);
   Evaluator evaluator(context);
@@ -513,7 +510,7 @@ void ckks_module3b() {
   * Note: In this toy example, relinearization does not actually make any noticeable difference
   */
   print_line(__LINE__);
-  cout << "Relinearize z*:" << endl;
+  cout << "Relinearize z*5:" << endl;
   evaluator.relinearize_inplace(ctxt_zTimesFive, relin_keys);
 
   /*
